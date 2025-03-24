@@ -35,9 +35,6 @@ Dotfiles (un)installation are managed by scripts located un [scripts](/scripts/)
 > **Installation**
 * Linux OS / Termux: [install.sh](/scripts/install.sh)
 
-> **Uninstallation**
-* Linux OS / Termux: [uninstall.sh](/scripts/uninstall.sh)
-
 You need to convert to Bash Script Executable file all scripts located in [scripts](/scripts/) folder, for this, type the following command:
 
 ```
@@ -48,10 +45,4 @@ $ chmod u+x ./scripts/*.sh
 
 ```
 $ ./scripts/install.sh
-```
-
-### Uninstallation
-
-```
-$ ./scripts/uninstall.sh
 ```

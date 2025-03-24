@@ -1,7 +1,7 @@
 Param(
     # Target passed as input.
     ##! Modify the help message when a new target is created.
-    [Parameter(Mandatory, HelpMessage = 'Targets: all, help, modules, alacritty, symlink, profile, nvim, vim' )]
+    [Parameter(Mandatory, HelpMessage = 'Targets: all, help, modules, alacritty, symlink, profile' )]
     [string]$Target
 )
 
@@ -23,8 +23,6 @@ $hashTableTargets = @{
     'alacritty' = "Dotfiles_PS_SetupAlacrittyConfigFile";
     'symlink' = "Dotfiles_PS_SetupSymlinks";
     'profile' = "Dotfiles_PS_SetupPSProfile";
-    'nvim' = "Dotfiles_PS_SetupAndInstallNeovim";
-    'vim' = "Dotfiles_PS_SetupAndInstallVim";
 }
 
 # Formats the hash table to a comprehensible string
@@ -62,8 +60,6 @@ function Internal_Dotfiles_PS_InvokeTerminal {
 ##! Modify it when a new target function is created.
 function Dotfiles_PS_InvokeAllTargets {
     Dotfiles_PS_InstallModules
-    Dotfiles_PS_SetupAndInstallVim
-    Dotfiles_PS_SetupAndInstallNeovim
     Dotfiles_PS_SetupAlacrittyConfigFile
     Dotfiles_PS_SetupPSProfile
     Dotfiles_PS_SetupSymlinks
@@ -167,81 +163,6 @@ function Dotfiles_PS_SetupPSProfile {
     }
 
     Dotfiles_PS_CountChanges -Count $processCount -ProcessName "Powershell profile"
-}
-
-function Dotfiles_PS_SetupAndInstallVim {
-    $processCount = 0
-
-    if (Get-Command winget.exe) {
-        Internal_Dotfiles_PS_CheckAndInstallWinGetPackage -PackageId "vim.vim" -AdditionalWingetParameters "--interactive" -InteractiveTerminal $true
-    } else {
-        Write-Warning "!!--> Winget binary couldn't found. I'll omit the winget packages installation."
-        Write-Warning "!!--> Once you get the winget binary came back to run this target."
-    }
-
-    if (Get-Command git.exe) {
-        $vimrcFolderName = "vimfiles"
-        $vimrc = "$env:USERPROFILE\$vimrcFolderName"
-
-        # This condition is there because when winget installs vim, automatically creates a vimfiles directory.
-        # The intention is to remove that vimrc directory for then clone the correct vimrc directory.
-        # The statement also can be treated as a way to update the vimrc to the latest commit.
-        if (Test-Path -Path $vimrc) {
-            Write-Host "A vimrc directory was found! Removing..." -ForegroundColor Yellow
-            Remove-Item -Force -Recurse -Path $vimrc
-            $processCount = $processCount + 1
-        }
-
-        # This statement always should be executed and this will clone the correct vimrc.
-        if (-not (Test-Path -Path $vimrc)) {
-            Write-Host "'$vimrc' directory not found, cloning it using git..." -ForegroundColor Cyan
-            git.exe clone "https://github.com/barrientosvctor/vimrc.git" $vimrc
-            Write-Host "--> Vim dotfiles cloned to '$vimrc'" -ForegroundColor Green
-            $processCount = $processCount + 1
-        }
-
-	    Write-Host "Installing vim submodules..." -ForegroundColor Cyan
-        Internal_Dotfiles_PS_InvokeTerminal -Command "cd $vimrc; .\scripts\actions.ps1 -ActionNumber 1"
-        $processCount = $processCount + 1
-    } else {
-        Write-Warning "!!--> Git binary couldn't found. I'll omit the Vim dotfiles installation."
-        Write-Warning "!!--> Once you get the Git binary came back to run this target."
-    }
-
-    Dotfiles_PS_CountChanges -Count $processCount -ProcessName "Vim installation"
-}
-
-function Dotfiles_PS_SetupAndInstallNeovim {
-    $processCount = 0
-
-    if (Get-Command winget.exe) {
-        Internal_Dotfiles_PS_CheckAndInstallWinGetPackage -PackageId "Neovim.Neovim"
-    } else {
-        Write-Warning "!!--> Winget binary couldn't found. I'll omit the winget packages installation."
-        Write-Warning "!!--> Once you get the winget binary came back to run this target."
-    }
-
-    if (Get-Command git.exe) {
-        $nvimconfigPath = "$env:LOCALAPPDATA\nvim"
-	    $nvimdataPath = "$env:LOCALAPPDATA\nvim-data"
-        if (-not (Test-Path -Path $nvimconfigPath)) {
-            Write-Host "'$nvimconfigPath' directory not found, cloning it using git..." -ForegroundColor Cyan
-            git.exe clone "https://github.com/barrientosvctor/nvim.git" "$nvimconfigPath"
-            Write-Host "--> Neovim dotfiles cloned to '$nvimconfigPath'" -ForegroundColor Green
-            $processCount = $processCount + 1
-        }
-
-	    if (Test-Path -Path $nvimdataPath) {
-		    Write-Host "I'll remove the Neovim directory '$nvimdataPath' to refresh the Neovim with dotfiles." -Foreground Magenta
-		    Remove-Item -Force -Recurse -Path $nvimdataPath
-		    $processCount = $processCount + 1
-	    }
-    } else {
-        Write-Warning "!!--> Git binary couldn't found. I'll omit the Neovim dotfiles installation."
-        Write-Warning "!!--> Once you get the Git binary came back to run this target."
-    }
-
-    Dotfiles_PS_CountChanges -Count $processCount -ProcessName "Neovim installation"
 }
 
 # This function assumes you're located in dotfiles's root directory
