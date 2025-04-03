@@ -1,4 +1,6 @@
 set bg=dark
+set number
+set relativenumber
 set undofile
 set wrap
 set noswapfile
@@ -8,6 +10,12 @@ set autoindent
 set hidden
 set hlsearch
 set incsearch
+set showmatch
+set encoding=utf-8
+scriptencoding utf-8
+set backspace=2
+set ignorecase
+set smartcase
 syntax enable
 filetype indent plugin on
 let mapleader=","
