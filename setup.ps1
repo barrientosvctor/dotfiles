@@ -37,5 +37,22 @@ function installFzf {
     }
 }
 
+function installVim {
+    if ((Get-Command "vim") -eq $false) {
+        winget install --interactive -e --id vim.vim
+    }
+}
+
+function setupVimrc {
+    New-Item -ItemType SymbolicLink -Path "$env:HOMEPATH\_vimrc" -Value "$PWD\.config\vim\.vimrc"
+
+    # Vim-Plug installation
+    Invoke-WebRequest -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $HOME/vimfiles/autoload/plug.vim -Force
+
+    if (Get-Command "vim") {
+        vim -es -u $env:HOMEPATH\_vimrc -i NONE -c "PlugInstall" -c "qa"
+    }
+}
+
 setPSProfile
 installFzf
