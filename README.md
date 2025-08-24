@@ -14,3 +14,15 @@ Make sure to run the `setup.ps1` script with administrator rights and from the r
 ```shell
 PS> .\setup.ps1
 ```
+
+### Script parameters
+
+**Note**: Running the script with no parameters. Runs a basic setup.
+
+#### Optional parameters
+
+- `_ForcePSProfile`: Forces the renaming of PSProfile.
+- `FullSetup`: Installs all features and programs.
+- `InstallVim`: Installs vim.
+- `SetupVim`: Configures vimrc.
+- `FullVim`: Executes `InstallVim` and `SetupVim` procedures.
