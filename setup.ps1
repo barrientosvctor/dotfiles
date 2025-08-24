@@ -44,11 +44,11 @@ function setPSProfile {
 }
 
 function installFzf {
-    if ((Get-Command "fzf") -eq $false) { 
+    if (-not (Get-Command "fzf" -ErrorAction SilentlyContinue)) { 
         winget install fzf
     }
     
-    if ((Get-Package "PSFzf") -eq $false) {
+    if (-not (Get-Package "PSFzf" -ErrorAction SilentlyContinue)) {
         Install-Module -Name PSFzf
     }
 }
