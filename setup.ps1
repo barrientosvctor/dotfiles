@@ -1,3 +1,14 @@
+Param(
+    [switch]$_ForcePSProfile,
+
+    [Parameter(HelpMessage = "Installs PSProfile, fzf and vim. Also setup vim as well.")]
+    [switch]$FullSetup,
+
+    [switch]$InstallVim,
+    [switch]$SetupVim,
+    [switch]$FullVim
+)
+
 # Setup script for PowerShell 5.1 or greater.
 
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
@@ -22,8 +33,13 @@ if ($confirmation -eq "n") {
 }
 
 function setPSProfile {
-    if ((Test-Path $PROFILE) -eq $false) {
-        New-Item -ItemType "SymbolicLink" -Path "$PROFILE" -Value "$PWD\.config\powershell\profile.ps1"
+    if ($_ForcePSProfile -eq $true) {
+        New-Item -ItemType "SymbolicLink" -Path "$PROFILE" -Value "$PWD\.config\powershell\profile.ps1" -Verbose -Force
+    }
+    else {
+        if ((Test-Path $PROFILE) -eq $false) {
+            New-Item -ItemType "SymbolicLink" -Path "$PROFILE" -Value "$PWD\.config\powershell\profile.ps1" -Verbose
+        }
     }
 }
 
@@ -38,21 +54,38 @@ function installFzf {
 }
 
 function installVim {
-    if ((Get-Command "vim") -eq $false) {
+    if (-not (Get-Command "vim" -ErrorAction SilentlyContinue)) {
         winget install --interactive -e --id vim.vim
     }
 }
 
 function setupVimrc {
-    New-Item -ItemType SymbolicLink -Path "$env:HOMEPATH\_vimrc" -Value "$PWD\.config\vim\.vimrc"
-
+    New-Item -ItemType SymbolicLink -Path "$env:HOMEPATH\_vimrc" -Value "$PWD\.config\vim\.vimrc" -Force
+    
     # Vim-Plug installation
     Invoke-WebRequest -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $HOME/vimfiles/autoload/plug.vim -Force
-
-    if (Get-Command "vim") {
-        vim -es -u $env:HOMEPATH\_vimrc -i NONE -c "PlugInstall" -c "qa"
-    }
+    
+    vim -es -u $env:HOMEPATH\_vimrc -i NONE -c "PlugInstall" -c "qa"
 }
 
 setPSProfile
 installFzf
+
+if ($FullSetup -eq $true) {
+    installVim
+    setupVimrc
+}
+else {
+    if ($FullVim -eq $true) {
+        installVim
+        setupVimrc
+    }
+    else {
+        if ($InstallVim -eq $true) {
+            installVim
+        }
+        if ($SetupVim -eq $true) {
+            setupVimrc
+        }
+    }
+}
