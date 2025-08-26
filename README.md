@@ -5,7 +5,11 @@
 
 ## Unix
 
-Work in progress...
+To execute the setup on Linux/MacOS, run the following script:
+
+```shell
+$ ./bootstrap.sh
+```
 
 ## Windows
 
