@@ -1,9 +1,10 @@
 #!/bin/sh
 
-$curdir=$(pwd)
+curdir=$(pwd)
 
 cd $HOME
 
+rm -rf $HOME/.dotfiles
 git clone --depth=1 https://github.com/barrientosvctor/dotfiles.git $HOME/.dotfiles
 
 chmod +x $HOME/.dotfiles/bootstrap-termux.sh
