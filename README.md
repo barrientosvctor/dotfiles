@@ -11,6 +11,30 @@ To execute the setup on Linux/MacOS, run the following script:
 $ ./bootstrap.sh
 ```
 
+### Termux
+
+```shell
+$ ./bootstrap-termux.sh
+```
+
+#### Automatic installation
+
+**Requirements**:
+
+- Git
+
+Using `curl`:
+
+```shell
+$ curl -sS https://raw.githubusercontent.com/barrientosvctor/dotfiles/master/autoinstall-termux.sh | sh
+```
+
+or using `wget`:
+
+```shell
+$ wget -qO - https://raw.githubusercontent.com/barrientosvctor/dotfiles/master/autoinstall-termux.sh | sh
+```
+
 ## Windows
 
 Make sure to run the `setup.ps1` script with administrator rights and from the root of the dotfiles folder for successfully install the configuration.
