@@ -1,14 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/bash -
+
+# Returns the dotfiles' path from wherever directory you run this script.
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 termux-setup-storage
 
 pkg --check-mirror update
 pkg update && pkg upgrade --yes
 
-pkg install vim tmux git wget fzf nodejs-lts -y
+pkg install vim tmux git wget fzf nodejs-lts --yes
 
-ln --force -s $HOME/.dotfiles/.config/vim/.vimrc $HOME/.vimrc
-ln --force -s $HOME/.dotfiles/.config/tmux/.tmux.conf $HOME/.tmux.conf
+ln --force -s $DOTFILES_DIR/.config/vim/.vimrc $HOME/.vimrc
+ln --force -s $DOTFILES_DIR/.config/tmux/.tmux.conf $HOME/.tmux.conf
 
 # Install Vim-Plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
