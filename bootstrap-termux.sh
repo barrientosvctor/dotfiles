@@ -5,7 +5,7 @@ termux-setup-storage
 pkg --check-mirror update
 pkg update && pkg upgrade
 
-pkg install vim tmux git wget fzf nodejs-lts
+pkg install vim tmux git wget fzf nodejs-lts -y
 
 ln --force -s $HOME/.dotfiles/.config/vim/.vimrc $HOME/.vimrc
 ln --force -s $HOME/.dotfiles/.config/tmux/.tmux.conf $HOME/.tmux.conf
