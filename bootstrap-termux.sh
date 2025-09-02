@@ -3,7 +3,7 @@
 termux-setup-storage
 
 pkg --check-mirror update
-pkg update && pkg upgrade
+pkg update && pkg upgrade --yes
 
 pkg install vim tmux git wget fzf nodejs-lts -y
 
