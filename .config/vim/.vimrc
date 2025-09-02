@@ -51,6 +51,8 @@ if has("gui_running")
     set guifont=JetBrains\ Mono:h16
 endif
 
+" Detecting (name) as file names. https://github.com/vim/vim/issues/18119
+if has("win32") | set isfname+=(,) | endif
 if has("patch-8.2.4325") && exists("+wildoptions") | set wildoptions=pum | endif
 if exists("+termguicolors") | set termguicolors | endif
 if exists("+clipboard") && exists("+clientserver") | set clipboard=unnamedplus | endif
@@ -94,7 +96,6 @@ call plug#end()
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_theme='gruvbox'
-let g:airline_powerline_fonts = 1
 
 " FZF
 let g:fzf_vim = {}
