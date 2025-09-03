@@ -3,39 +3,35 @@
 > [!CAUTION]
 > This is my own dotfiles, if you are going to run some of these dotfiles in your machine, do it at your own risk.
 
-## Unix
+## Requirements
+
+- Git
+
+## How to install
+
+**1.** Clone this repository:
+
+```shell
+$ git clone --depth=1 https://github.com/barrientosvctor/dotfiles.git
+```
+
+### How to execute installation scripts
+
+#### Unix
 
 To execute the setup on Linux/MacOS, run the following script:
 
 ```shell
-$ ./bootstrap.sh
+$ chmod +x ./bootstrap.sh && ./bootstrap.sh
 ```
 
-### Termux
+##### Termux
 
 ```shell
-$ ./bootstrap-termux.sh
+$ chmod +x ./bootstrap-termux.sh && ./bootstrap-termux.sh
 ```
 
-#### Automatic installation
-
-**Requirements**:
-
-- Git
-
-Using `curl`:
-
-```shell
-$ curl -sS https://raw.githubusercontent.com/barrientosvctor/dotfiles/master/autoinstall-termux.sh | sh
-```
-
-or using `wget`:
-
-```shell
-$ wget -qO - https://raw.githubusercontent.com/barrientosvctor/dotfiles/master/autoinstall-termux.sh | sh
-```
-
-## Windows
+#### Windows
 
 Make sure to run the `setup.ps1` script with administrator rights and from the root of the dotfiles folder for successfully install the configuration.
 
@@ -43,11 +39,11 @@ Make sure to run the `setup.ps1` script with administrator rights and from the r
 PS> .\setup.ps1
 ```
 
-### Script parameters
+##### Script parameters
 
 **Note**: Running the script with no parameters. Runs a basic setup.
 
-#### Optional parameters
+> **Optional parameters**
 
 - `_ForcePSProfile`: Forces the renaming of PSProfile.
 - `FullSetup`: Installs all features and programs.
