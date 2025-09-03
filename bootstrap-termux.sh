@@ -1,5 +1,7 @@
 #!/bin/bash -
 
+set -x
+
 # Returns the dotfiles' path from wherever directory you run this script.
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
