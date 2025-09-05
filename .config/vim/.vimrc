@@ -102,7 +102,7 @@ let g:fzf_vim = {}
 let g:fzf_layout = { 'down': '40%' }
 
 " coc.nvim
-if exists('g:did_coc_loaded')
+function! CocUserSettings()
     set nowritebackup
     set updatetime=300
     set signcolumn=yes
@@ -155,7 +155,10 @@ if exists('g:did_coc_loaded')
 
     " Add `:OR` command for organize imports of the current buffer
     command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-endif
+endfunction
+
+" Recommended way for checking if coc was loaded. https://github.com/neoclide/coc.nvim/discussions/5423
+autocmd User CocNvimInit call CocUserSettings()
 
 " }}}
 
