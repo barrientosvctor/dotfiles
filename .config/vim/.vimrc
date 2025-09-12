@@ -79,7 +79,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 
 if has("patch-9.0.1799")
     packadd! editorconfig
@@ -91,11 +90,6 @@ call plug#end()
 " }}}
 
 " Plugin Configuration: {{{
-
-" Vim airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_theme='gruvbox'
 
 " FZF
 let g:fzf_vim = {}
