@@ -93,6 +93,7 @@ call plug#end()
 
 " NERDTree
 let NERDTreeQuitOnOpen = 1
+let g:NERDTreeMapActivateNode = "n"
 
 " FZF
 let g:fzf_vim = {}
