@@ -91,6 +91,9 @@ call plug#end()
 
 " Plugin Configuration: {{{
 
+" NERDTree
+let NERDTreeQuitOnOpen = 1
+
 " FZF
 let g:fzf_vim = {}
 let g:fzf_layout = { 'down': '40%' }
@@ -166,10 +169,7 @@ nnoremap <Leader>tv <Cmd>vertical terminal<CR>
 nnoremap <Leader>te <Cmd>tabedit<CR>
 nnoremap <Leader>tp <Cmd>tabprevious<CR>
 nnoremap <Leader>tn <Cmd>tabnext<CR>
-tnoremap <Esc><Esc> <C-\><C-n>
 nnoremap <Leader>bd <Cmd>bd<CR>
-nnoremap <Leader>tb <Cmd>call util#ToggleBackground()<CR>
-nnoremap <F2> <Cmd>call util#SynStack()<CR>
 
 " Plugins
 nnoremap <Leader>ff <Cmd>NERDTreeToggle<CR>
