@@ -91,6 +91,9 @@ call plug#end()
 
 " Plugin Configuration: {{{
 
+" Gruvbox
+let g:gruvbox_contrast_dark = "hard"
+
 " NERDTree
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeMapActivateNode = "n"
