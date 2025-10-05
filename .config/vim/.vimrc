@@ -40,35 +40,12 @@ endif
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'sheerun/vim-polyglot', { 'commit': 'f5393cf', 'frozen': 1 }
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'], 'commit': '9b465ac', 'frozen': 1 }
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
-
 Plug 'vim-airline/vim-airline'
-
-if has("patch-9.0.1799")
-    packadd! editorconfig
-else
-    Plug 'editorconfig/editorconfig-vim'
-endif
 call plug#end()
 
 " }}}
 
 " Plugin Configuration: {{{
-
-" Gruvbox
-let g:gruvbox_contrast_dark = "hard"
-
-" NERDTree
-let NERDTreeQuitOnOpen = 1
-let g:NERDTreeMapActivateNode = "n"
-
-" FZF
-let g:fzf_vim = {}
-let g:fzf_layout = { 'down': '40%' }
 
 " coc.nvim
 function! CocUserSettings()
@@ -119,21 +96,13 @@ autocmd User CocNvimInit call CocUserSettings()
 
 " Keymaps: {{{
 
-nnoremap <Leader><BS> <Cmd>nohlsearch<CR>
-nnoremap <Leader>tx <Cmd>split<CR>
-nnoremap <Leader>ty <Cmd>vsp<CR><C-w>l
 nnoremap <Leader>th <Cmd>term<CR>
 nnoremap <Leader>tv <Cmd>vertical terminal<CR>
 nnoremap <Leader>te <Cmd>tabedit<CR>
 nnoremap <Leader>tp <Cmd>tabprevious<CR>
 nnoremap <Leader>tn <Cmd>tabnext<CR>
-nnoremap <Leader>bd <Cmd>bd<CR>
-
-" Plugins
-nnoremap <Leader>ff <Cmd>NERDTreeToggle<CR>
-nnoremap <Leader><Leader> <Cmd>Files<CR>
-nnoremap <Leader>ls <Cmd>Buffers<CR>
 
 " }}}
 
-colorscheme gruvbox
+packadd editorconfig
+colorscheme retrobox
