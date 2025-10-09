@@ -4,13 +4,8 @@
 
 " Settings: {{{
 
-set bg=dark
-set number
-set relativenumber
-set wrap
 set hlsearch
 set showmatch
-syntax on
 set encoding=utf-8
 scriptencoding utf-8
 set autoindent
@@ -19,19 +14,15 @@ set backspace=2
 set hidden
 set noswapfile
 set nobackup
-set laststatus=2
 set wildmenu
-filetype indent plugin on
 let mapleader = ","
 
 " Detecting (name) as file names. https://github.com/vim/vim/issues/18119
 if has("win32") | set isfname+=(,) | endif
-if has("patch-8.2.4325") && exists("+wildoptions") | set wildoptions=pum | endif
-
 if has("gui_running")
     set guioptions-=T
     set guioptions-=m
-    set guifont=JetBrains\ Mono:h16
+    set guifont=JetBrains\ Mono:h14
 endif
 
 " }}}
