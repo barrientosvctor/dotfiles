@@ -104,4 +104,3 @@ nnoremap <Leader>ff :find **/
 " }}}
 
 packadd editorconfig
-colorscheme retrobox
