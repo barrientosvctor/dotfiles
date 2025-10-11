@@ -19,7 +19,6 @@ set noswapfile
 set nobackup
 set wildmenu
 set wildoptions=pum
-set laststatus=2
 let mapleader = ","
 
 " Detecting (name) as file names. https://github.com/vim/vim/issues/18119
