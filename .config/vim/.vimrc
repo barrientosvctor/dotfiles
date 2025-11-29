@@ -41,6 +41,9 @@ call plug#end()
 
 " Plugin Configuration: {{{
 
+" netrw
+let g:netrw_liststyle = 3
+
 " coc.nvim
 function! CocUserSettings()
     set nowritebackup
@@ -95,6 +98,8 @@ nnoremap <Leader>tv <Cmd>vertical terminal<CR>
 nnoremap <Leader>te <Cmd>tabedit<CR>
 nnoremap <Leader>tp <Cmd>tabprevious<CR>
 nnoremap <Leader>tn <Cmd>tabnext<CR>
+nnoremap <Leader>fe :Ex<CR>
+nnoremap <Leader>ff :find **/
 
 " }}}
 
