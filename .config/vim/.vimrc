@@ -33,61 +33,58 @@ endif
 " Plugins: {{{
 
 call plug#begin()
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'vim-airline/vim-airline'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 " }}}
 
 " Plugin Configuration: {{{
 
+" vim-vsnip
+" Expand
+imap <expr> <cr>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<cr>'
+smap <expr> <cr>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<cr>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
 " netrw
 let g:netrw_liststyle = 3
 
-" coc.nvim
-function! CocUserSettings()
-    set nowritebackup
-    set updatetime=300
-    set signcolumn=yes
+" vim-lsp
+let g:lsp_document_highlight_enabled = 0
 
-    inoremap <silent><expr> <TAB>
-          \ coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
 
-    inoremap <silent><expr> <C-f> coc#refresh()
-    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-    inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-    nmap <silent><nowait> [g <Plug>(coc-diagnostic-prev)
-    nmap <silent><nowait> ]g <Plug>(coc-diagnostic-next)
-    nmap <silent><nowait> gd <Plug>(coc-definition)
-    nmap <silent><nowait> gy <Plug>(coc-type-definition)
-    nmap <silent><nowait> gi <Plug>(coc-implementation)
-    nmap <silent><nowait> gr <Plug>(coc-references)
-    nmap <leader>rn <Plug>(coc-rename)
-    nnoremap <silent> K :call ShowDocumentation()<CR>
-
-    function! ShowDocumentation()
-      if CocAction('hasProvider', 'hover')
-        call CocActionAsync('doHover')
-      else
-        call feedkeys('K', 'in')
-      endif
-    endfunction
-
-    augroup mygroup
-      autocmd!
-      " Setup formatexpr specified filetype(s)
-      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    augroup end
-
-    command! -nargs=0 Format :call CocActionAsync('format')
-    command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 
-" Recommended way for checking if coc was loaded. https://github.com/neoclide/coc.nvim/discussions/5423
-autocmd User CocNvimInit call CocUserSettings()
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 " }}}
 
