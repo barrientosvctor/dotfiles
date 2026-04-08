@@ -46,15 +46,19 @@ let g:netrw_liststyle = 3
 
 " coc.nvim
 function! CocUserSettings()
-    set nowritebackup
     set updatetime=300
     set signcolumn=yes
 
-    inoremap <silent><expr> <TAB>
-          \ coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+    let g:coc_global_extensions = ['coc-json', 'coc-snippets']
 
-    inoremap <silent><expr> <C-f> coc#refresh()
-    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+    inoremap <silent><expr> <C-N>
+          \ coc#pum#visible() ? coc#pum#next(1) : "\<C-N>"
+    inoremap <expr><C-P> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+    inoremap <silent><expr> <c-space> coc#refresh()
+    if !has("nvim") && !has("gui_running")
+	    inoremap <silent><expr> <c-@> coc#refresh()
+    endif
 
     inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                                   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -84,6 +88,11 @@ function! CocUserSettings()
 
     command! -nargs=0 Format :call CocActionAsync('format')
     command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+
+    " COC SNIPPETS
+    let g:coc_snippet_next = '<TAB>'
+    let g:coc_snippet_prev = '<S-TAB>'
 endfunction
 
 " Recommended way for checking if coc was loaded. https://github.com/neoclide/coc.nvim/discussions/5423
