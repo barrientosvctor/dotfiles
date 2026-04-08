@@ -106,6 +106,7 @@ autocmd User CocNvimInit call CocUserSettings()
 
 " Keymaps: {{{
 
+nnoremap <silent> <CR> :noh<cr>
 nnoremap <Leader>th <Cmd>term<CR>
 nnoremap <Leader>tv <Cmd>vertical terminal<CR>
 nnoremap <Leader>te <Cmd>tabedit<CR>
