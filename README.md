@@ -50,3 +50,6 @@ PS> .\setup.ps1
 - `InstallVim`: Installs vim.
 - `SetupVim`: Configures vimrc.
 - `FullVim`: Executes `InstallVim` and `SetupVim` procedures.
+- `InstallNeovim`: Installs neovim.
+- `SetupNeovim`: Configures vimrc for neovim.
+- `FullNeovim`: Executes `InstallNeovim` and `SetupNeovim` procedures.

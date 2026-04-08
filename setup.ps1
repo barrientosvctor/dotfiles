@@ -6,7 +6,10 @@ Param(
 
     [switch]$InstallVim,
     [switch]$SetupVim,
-    [switch]$FullVim
+    [switch]$FullVim,
+    [switch]$InstallNeovim,
+    [switch]$SetupNeovim,
+    [switch]$FullNeovim,
 )
 
 # Setup script for PowerShell 5.1 or greater.
@@ -59,6 +62,12 @@ function installVim {
     }
 }
 
+function installNeovim {
+    if (-not (Get-Command "nvim" -ErrorAction SilentlyContinue)) {
+        winget install -e --id Neovim.Neovim
+    }
+}
+
 function setupVimrc {
     New-Item -ItemType SymbolicLink -Path "$env:HOMEPATH\_vimrc" -Value "$PWD\.config\vim\.vimrc" -Force
     
@@ -68,6 +77,15 @@ function setupVimrc {
     vim -es -u $env:HOMEPATH\_vimrc -i NONE -c "PlugInstall" -c "qa"
 }
 
+function setupNvimrc {
+    New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\nvim\init.vim" -Value "$PWD\.config\vim\.vimrc" -Force
+    
+    # Vim-Plug installation
+    Invoke-WebRequest -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
+    
+    nvim -es -u $env:LOCALAPPDATA\nvim\init.vim -i NONE -c "PlugInstall" -c "qa"
+}
+
 setPSProfile
 installFzf
 
@@ -75,7 +93,7 @@ if ($FullSetup -eq $true) {
     installVim
     setupVimrc
 }
-else {
+else {   
     if ($FullVim -eq $true) {
         installVim
         setupVimrc
@@ -86,6 +104,19 @@ else {
         }
         if ($SetupVim -eq $true) {
             setupVimrc
+        }
+    }
+
+    if ($FullNeovim -eq $true) {
+        installNeovim
+        setupNvimrc
+    }
+    else {
+        if ($InstallNeovim -eq $true) {
+            installNeovim
+        }
+        if ($SetupNeovim -eq $true) {
+            setupNvimrc
         }
     }
 }
