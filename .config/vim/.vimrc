@@ -129,4 +129,6 @@ nnoremap <Leader>ff :find **/
 
 " }}}
 
-packadd editorconfig
+if !has("nvim")
+    packadd editorconfig
+endif
