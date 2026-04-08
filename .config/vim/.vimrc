@@ -18,14 +18,18 @@ set noswapfile
 set nobackup
 set wildmenu
 set wildoptions=pum
+set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/vendor/**
+set nowritebackup
 let mapleader = ","
 
-" Detecting (name) as file names. https://github.com/vim/vim/issues/18119
-if has("win32") | set isfname+=(,) | endif
 if has("gui_running")
     set guioptions-=T
     set guioptions-=m
     set guifont=JetBrains\ Mono:h14
+endif
+
+if has('termguicolors')
+  set termguicolors
 endif
 
 " }}}
