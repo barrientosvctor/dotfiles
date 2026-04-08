@@ -20,6 +20,7 @@ set wildmenu
 set wildoptions=pum
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/vendor/**
 set nowritebackup
+set clipboard=unnamed
 let mapleader = ","
 
 if has("gui_running")
@@ -30,6 +31,17 @@ endif
 
 if has('termguicolors')
   set termguicolors
+endif
+
+if has('wsl')
+  let g:clipboard = {
+  \ 'name': 'WslClip',
+  \ 'copy':  { '+': 'clip.exe',  '*': 'clip.exe' },
+  \ 'paste': { '+': 'powershell.exe -NoProfile -Command Get-Clipboard',
+  \            '*': 'powershell.exe -NoProfile -Command Get-Clipboard' },
+  \ 'cache_enabled': 0,
+  \ }
+  set clipboard=unnamedplus
 endif
 
 " }}}
