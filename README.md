@@ -25,6 +25,12 @@ To execute the setup on Linux/MacOS, run the following script:
 $ chmod +x ./bootstrap.sh && ./bootstrap.sh
 ```
 
+#### Installing fonts (only for Debian-based distros)
+
+```shell
+$ chmod +x ./install-fonts.sh && ./install-fonts.sh
+```
+
 ##### Termux
 
 ```shell
