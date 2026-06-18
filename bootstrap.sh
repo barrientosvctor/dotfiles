@@ -33,4 +33,6 @@ fi
 # ---------------------- Symlinks setup ----------------------
 rm -rf $HOME/.tmux.conf
 ln -s $curdir/.config/tmux/.tmux.conf $HOME/.tmux.conf
+
+ln -s $curdir/.editorconfig $HOME/.editorconfig
 mkdir -p $HOME/.config/alacritty && ln -s $curdir/.config/alacritty/alacritty.toml $HOME/.config/alacritty/alacritty.toml
