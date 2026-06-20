@@ -2,10 +2,10 @@
 startup_mode = "Maximized"
 
 [font]
-normal = { family = "CaskaydiaCove Nerd Font", style = "Regular" }
-bold = { family = "CaskaydiaCove Nerd Font", style = "Bold" }
-italic = { family = "CaskaydiaCove Nerd Font", style = "Italic" }
-bold_italic = { family = "CaskaydiaCove Nerd Font", style = "Bold Italic" }
+normal = { family = "DroidSansM Nerd Font", style = "Regular" }
+bold = { family = "DroidSansM Nerd Font", style = "Bold" }
+italic = { family = "DroidSansM Nerd Font", style = "Italic" }
+bold_italic = { family = "DroidSansM Nerd Font", style = "Bold Italic" }
 size = 16.0
 
 [mouse]

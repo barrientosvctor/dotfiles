@@ -9,7 +9,7 @@ install_font() {
     local font_name="$1"
     local zip_name="$2"
     local download_url="$3"
-    
+
     echo "Processing $font_name..."
 
     mkdir -p "$font_dir" || return 1
@@ -44,6 +44,7 @@ install_font "Cascadia" "CascadiaCode.zip" "https://github.com/ryanoasis/nerd-fo
 install_font "JetBrainsMono" "JetBrainsMono.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
 
 install_font "Iosevka" "Iosevka.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Iosevka.zip"
+install_font "DroidSansMono" "DroidSansMono.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/DroidSansMono.zip"
 
 # Clean up temp directory structure if empty
 rm -rf "$font_dir"
