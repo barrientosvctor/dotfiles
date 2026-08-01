@@ -6,9 +6,9 @@ curdir=$(pwd)
 font_dir="$curdir/$font_foldername"
 
 install_font() {
-    local font_name="$1"
-    local zip_name="$2"
-    local download_url="$3"
+    local download_url="$1"
+    local font_name="$(basename ${download_url%.*})"
+    local zip_name="$(basename $download_url)"
 
     echo "Processing $font_name..."
 
@@ -39,12 +39,11 @@ install_font() {
 # Ensure destination exists
 mkdir -p "$font_user_folder"
 
-install_font "Cascadia" "CascadiaCode.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaCode.zip"
+install_font "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaCode.zip"
 
-install_font "JetBrainsMono" "JetBrainsMono.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+install_font "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
 
-install_font "Iosevka" "Iosevka.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Iosevka.zip"
-install_font "DroidSansMono" "DroidSansMono.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/DroidSansMono.zip"
+install_font "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Iosevka.zip"
 
 # Clean up temp directory structure if empty
 rm -rf "$font_dir"
